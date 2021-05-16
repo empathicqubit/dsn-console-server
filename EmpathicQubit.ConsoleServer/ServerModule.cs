@@ -27,6 +27,7 @@ namespace EmpathicQbt.ConsoleServer {
             Get("/api/ping", _ => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString());
             Get("/api/favorites", GetFavorites);
             Post("/api/command", PostCommand);
+            Get("/", _ => Response.AsFile("static/index.html"));
             Get("/{filename}", _ => Response.AsFile("static/" + (string)_.filename));
         }
 
