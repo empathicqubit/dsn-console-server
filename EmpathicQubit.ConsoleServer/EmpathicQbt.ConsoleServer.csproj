@@ -144,6 +144,7 @@
     <Copy SkipUnchangedFiles="true" SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.Original.exe" DestinationFolder="$(DragonBornSEOutputPath)\.." />
     <Copy SkipUnchangedFiles="true" SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini" DestinationFolder="$(DragonBornSEOutputPath)\.." />
     <Copy SkipUnchangedFiles="true" SourceFiles="@(FoMod)" DestinationFolder="$(DragonBornPluginRoot)\fomod" />
+	  <ZipDirectory SourceDirectory="$(DragonBornPluginRoot)" DestinationFile="$(DragonBornPluginRoot)\..\DragonbornSpeaksNaturallyApi.$(Configuration).zip" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
