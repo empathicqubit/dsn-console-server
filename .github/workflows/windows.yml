@@ -39,6 +39,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.get_release.outputs.upload_url }}
-        asset_path: EmpathicQbt.ConsoleServer/bin/DragonbornSpeaksNaturallyApi.Release.zip
+        asset_path: EmpathicQubit.ConsoleServer/bin/DragonbornSpeaksNaturallyApi.Release.zip
         asset_name: DragonbornSpeaksNaturallyApi.zip
         asset_content_type: application/zip
