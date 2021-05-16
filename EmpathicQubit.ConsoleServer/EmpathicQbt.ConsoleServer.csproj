@@ -3,6 +3,7 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <DragonBornModPath>SkyrimVR\Data\Plugins\Sumwunn</DragonBornModPath>
+	<DragonBornUrl>https://github.com/YihaoPeng/DragonbornSpeaksNaturally/releases/download/v0.21.0-beta/DSN-0.21.0-win64.zip</DragonBornUrl>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -100,9 +101,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.0\build\Fody.targets')" />
   <ItemGroup>
-    <DragonBornZip Include="$(USERPROFILE)\Downloads\DragonbornSpeaksNaturally*.zip" />
-  </ItemGroup>
-  <ItemGroup>
     <FoMod Include="fomod\info.xml" />
     <FoMod Include="fomod\ModuleConfig.xml" />
   </ItemGroup>
@@ -136,7 +134,8 @@
     <DragonBornPluginRoot>$(ProjectDir)\$(OutputPath)\..\..\..\..\..</DragonBornPluginRoot>
     <DragonBornSEOutputPath>$(DragonBornPluginRoot)\SkyrimSE\Data\Plugins\Sumwunn\$(AssemblyName)</DragonBornSEOutputPath>
   </PropertyGroup>
-    <Unzip SourceFiles="@(DragonBornZip)" DestinationFolder="$(ProjectDir)\$(OutputPath)\..\..\..\..\.." />
+	  <DownloadFile SourceUrl="$(DragonBornUrl)" DestinationFolder="$(IntermediateOutputPath)" DestinationFileName="dsn.zip" />
+    <Unzip SourceFiles="$(IntermediateOutputPath)\dsn.zip" DestinationFolder="$(ProjectDir)\$(OutputPath)\..\..\..\..\.." />
     <Move SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.exe" DestinationFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.Original.exe" />
     <Exec Command="$(DragonBornShimGen)" />
 	<CallTarget Targets="ConcatIniFile" />
