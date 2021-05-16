@@ -1,0 +1,72 @@
+<!-- FOMod Creation Tool [http://www.nexusmods.com/fallout4/mods/6821] -->
+<!-- FOMod Quick Guide [https://media.readthedocs.org/pdf/fomod-docs/latest/fomod-docs.pdf] -->
+<!-- FOMod Reference Manual [https://fomod-designer.readthedocs.io/en/stable/] -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
+  <moduleName>Dragonborn Speaks Naturally + Weapon Select UI and HTTP API</moduleName>
+  <requiredInstallFiles>
+    <folder source="docs" destination="Docs" priority="0"/>
+  </requiredInstallFiles>
+  <installSteps order="Explicit">
+    <installStep name="Choose Option">
+      <optionalFileGroups order="Explicit">
+        <group name="Skyrim Edition:" type="SelectExactlyOne">
+          <plugins order="Explicit">
+            <plugin name="Skyrim VR">
+              <description><![CDATA[This plugin is compatible and only compatible with SkyrimVR 1.4.15.0.
+
+To make the plugin working, you must manually install xSHADOWMANx's Dll Loader to the game root directory.
+
+You cannot install the loader via any MOD manager (But DSN can be installed via MOD Manager).
+
+You can find the loader here: https://www.nexusmods.com/skyrimspecialedition/mods/3619]]></description>
+              <files>
+                <folder source="SkyrimVR\Data" destination="" priority="0"/>
+                <file source="fomod/DSN-installed.md" destination="SKSE/DSN/DSN-for-SkyrimVR-installed.md" priority="0"/>
+              </files>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional"/>
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="Or">
+                        <fileDependency file="SkyrimVR.esp" state="Active"/>
+                        <fileDependency file="SkyrimVR.esp" state="Inactive"/>
+                      </dependencies>
+                      <type name="Recommended"/>
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+            <plugin name="Skyrim Special Edition">
+              <description><![CDATA[This plugin is compatible and only compatible with Skyrim Special Edition 1.5.97.0.
+
+To make the plugin working, you must manually install xSHADOWMANx's Dll Loader to the game root directory.
+
+You cannot install the loader via any MOD manager (But DSN can be installed via MOD Manager).
+
+You can find the loader here: https://www.nexusmods.com/skyrimspecialedition/mods/3619]]></description>
+              <files>
+                <folder source="SkyrimSE\Data" destination="" priority="0"/>
+                <file source="fomod/DSN-installed.md" destination="SKSE/DSN/DSN-for-SkyrimSE-installed.md" priority="0"/>
+              </files>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional"/>
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="Or">
+                        <fileDependency file="SkyrimVR.esm" state="Missing"/>
+                      </dependencies>
+                      <type name="Recommended"/>
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+  </installSteps>
+</config>

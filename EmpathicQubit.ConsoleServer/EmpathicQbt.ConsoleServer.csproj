@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <DragonBornModPath>SkyrimVR\Data\Plugins\Sumwunn</DragonBornModPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEA491EE-C426-4B79-A443-CF5B1D795288}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>EmpathicQbt.ConsoleServer</RootNamespace>
+    <AssemblyName>EmpathicQbt.ConsoleServer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <AllowedReferenceRelatedFileExtensions>-</AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\$(DragonBornModPath)\$(AssemblyName)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\$(DragonBornModPath)\EmpathicQbt.ConsoleServer\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Costura, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.2.0.0\lib\net452\Costura.dll</HintPath>
+    </Reference>
+    <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.2.0.0\lib\net452\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Hosting.Self.2.0.0\lib\net452\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="InputForwarder.cs" />
+    <Compile Include="ServerBootstrapper.cs" />
+    <Compile Include="ServerModule.cs" />
+    <Compile Include="ConsoleInput.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="ExternalInterop.cs" />
+    <Compile Include="FavoritesList.cs" />
+    <Compile Include="SkyrimInterop.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+    <Content Include="static\index.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="static\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="static\index.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.3.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.0\build\Fody.targets')" />
+  <ItemGroup>
+    <DragonBornZip Include="$(USERPROFILE)\Downloads\DragonbornSpeaksNaturally*.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <FoMod Include="fomod\info.xml" />
+    <FoMod Include="fomod\ModuleConfig.xml" />
+  </ItemGroup>
+	<ItemGroup>
+		<IniFile Include="DragonbornSpeaksNaturally.SAMPLE.ini" />
+	</ItemGroup>
+	<Target Name="ConcatIniFile">
+		<!-- List all the files you want to concatenate. -->
+		<ItemGroup>
+			<ConcatFiles Include="
+        $(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini;
+        $(ProjectDir)\DragonbornSpeaksNaturally.SAMPLE.ini"/>
+		</ItemGroup>
+
+		<!-- Read the contents of the files (preserving tabs/spaces). -->
+		<ItemGroup>
+			<FileContents Include="$([System.IO.File]::ReadAllText(%(ConcatFiles.Identity)))"/>
+		</ItemGroup>
+
+		<!-- Write the result to a single file. -->
+        <WriteLinesToFile File="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini" Lines="@(FileContents)" Overwrite="true" />
+	</Target>
+  <Target Name="CopyDragonbornNaturallySpeakingOriginal" AfterTargets="Build">
+  <ItemGroup>
+    <DragonBornOutputs Include="$(ProjectDir)\$(OutputPath)\**\*.*" Visible="false" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DragonBornShimGen><![CDATA[
+"$(SolutionDir)\packages\chocolatey.0.10.14\tools\chocolateyInstall\tools\shimgen.exe" --output="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.exe" -p="$(AssemblyName)\$(AssemblyName).exe"
+]]></DragonBornShimGen>
+    <DragonBornPluginRoot>$(ProjectDir)\$(OutputPath)\..\..\..\..\..</DragonBornPluginRoot>
+    <DragonBornSEOutputPath>$(DragonBornPluginRoot)\SkyrimSE\Data\Plugins\Sumwunn\$(AssemblyName)</DragonBornSEOutputPath>
+  </PropertyGroup>
+    <Unzip SourceFiles="@(DragonBornZip)" DestinationFolder="$(ProjectDir)\$(OutputPath)\..\..\..\..\.." />
+    <Move SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.exe" DestinationFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.Original.exe" />
+    <Exec Command="$(DragonBornShimGen)" />
+	<CallTarget Targets="ConcatIniFile" />
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(DragonBornOutputs)" DestinationFolder="$(DragonBornSEOutputPath)" />
+    <Copy SkipUnchangedFiles="true" SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.exe" DestinationFolder="$(DragonBornSEOutputPath)\.." />
+    <Copy SkipUnchangedFiles="true" SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.Original.exe" DestinationFolder="$(DragonBornSEOutputPath)\.." />
+    <Copy SkipUnchangedFiles="true" SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini" DestinationFolder="$(DragonBornSEOutputPath)\.." />
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(FoMod)" DestinationFolder="$(DragonBornPluginRoot)\fomod" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.3.0.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.0.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets'))" />
+  </Target>
+  <Import Project="..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets')" />
+</Project>
