@@ -1,4 +1,4 @@
-# EmpathicQbt.ConsoleServer
+# skyrim-console-server
 
 A proxy that intercepts [Dragonborn Speaks Naturally](https://github.com/YihaoPeng/DragonbornSpeaksNaturally)
 to provide a weapon select interface and an HTTP API to send console commands
