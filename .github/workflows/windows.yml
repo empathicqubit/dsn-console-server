@@ -22,10 +22,10 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
      
     - name: Restore NuGet Packages
-      run: nuget restore EmpathicQbt.ConsoleServer.sln
+      run: nuget restore EmpathicQubit.ConsoleServer.sln
  
     - name: Build 
-      run: msbuild EmpathicQbt.ConsoleServer.sln /p:Configuration=Release
+      run: msbuild EmpathicQubit.ConsoleServer.sln /p:Configuration=Release
 
     - uses: bruceadams/get-release@v1.2.2
       id: get_release
