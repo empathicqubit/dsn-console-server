@@ -27,7 +27,7 @@ namespace EmpathicQbt.ConsoleServer {
             {
                 ItemId = 666,
                 TypeId = 999,
-                FormId = 222,
+                FormId = 0x00013985,
                 IsSingleHanded = true,
                 ItemName = "Wabbajack",
             },
@@ -35,7 +35,7 @@ namespace EmpathicQbt.ConsoleServer {
             {
                 ItemId = 666,
                 TypeId = 999,
-                FormId = 222,
+                FormId = 0x99999999,
                 IsSingleHanded = true,
                 ItemName = "Wabbajack2",
             },
@@ -43,7 +43,7 @@ namespace EmpathicQbt.ConsoleServer {
             {
                 ItemId = 666,
                 TypeId = 999,
-                FormId = 222,
+                FormId = 0x00013985,
                 IsSingleHanded = true,
                 ItemName = "Wabbajack3",
             },
@@ -51,7 +51,7 @@ namespace EmpathicQbt.ConsoleServer {
             {
                 ItemId = 666,
                 TypeId = 999,
-                FormId = 222,
+                FormId = 0x00013985,
                 IsSingleHanded = true,
                 ItemName = "Wabbajack4",
             },
@@ -59,7 +59,7 @@ namespace EmpathicQbt.ConsoleServer {
             {
                 ItemId = 666,
                 TypeId = 999,
-                FormId = 222,
+                FormId = 0x00013985,
                 IsSingleHanded = true,
                 ItemName = "Wabbajack5",
             },
@@ -67,7 +67,7 @@ namespace EmpathicQbt.ConsoleServer {
             {
                 ItemId = 666,
                 TypeId = 999,
-                FormId = 222,
+                FormId = 0x00013985,
                 IsSingleHanded = true,
                 ItemName = "Wabbajack6",
             },
@@ -75,7 +75,7 @@ namespace EmpathicQbt.ConsoleServer {
             {
                 ItemId = 666,
                 TypeId = 999,
-                FormId = 222,
+                FormId = 0x00013985,
                 IsSingleHanded = true,
                 ItemName = "Wabbajack7",
             },
@@ -83,7 +83,7 @@ namespace EmpathicQbt.ConsoleServer {
             {
                 ItemId = 666,
                 TypeId = 999,
-                FormId = 222,
+                FormId = 0x00013985,
                 IsSingleHanded = true,
                 ItemName = "Wabbajack8",
             },

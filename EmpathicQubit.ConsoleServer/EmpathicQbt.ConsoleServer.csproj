@@ -3,7 +3,7 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <DragonBornModPath>SkyrimVR\Data\Plugins\Sumwunn</DragonBornModPath>
-	<DragonBornUrl>https://github.com/YihaoPeng/DragonbornSpeaksNaturally/releases/download/v0.21.0-beta/DSN-0.21.0-win64.zip</DragonBornUrl>
+    <DragonBornUrl>https://github.com/YihaoPeng/DragonbornSpeaksNaturally/releases/download/v0.21.0-beta/DSN-0.21.0-win64.zip</DragonBornUrl>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -85,16 +85,13 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="weapon_map.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="static\index.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="static\index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="static\index.js">
+    <Content Include="static\**\*.*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -104,47 +101,43 @@
     <FoMod Include="fomod\info.xml" />
     <FoMod Include="fomod\ModuleConfig.xml" />
   </ItemGroup>
-	<ItemGroup>
-		<IniFile Include="DragonbornSpeaksNaturally.SAMPLE.ini" />
-	</ItemGroup>
-	<Target Name="ConcatIniFile">
-		<!-- List all the files you want to concatenate. -->
-		<ItemGroup>
-			<ConcatFiles Include="
-        $(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini;
-        $(ProjectDir)\DragonbornSpeaksNaturally.SAMPLE.ini"/>
-		</ItemGroup>
-
-		<!-- Read the contents of the files (preserving tabs/spaces). -->
-		<ItemGroup>
-			<FileContents Include="$([System.IO.File]::ReadAllText(%(ConcatFiles.Identity)))"/>
-		</ItemGroup>
-
-		<!-- Write the result to a single file. -->
-        <WriteLinesToFile File="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini" Lines="@(FileContents)" Overwrite="true" />
-	</Target>
-  <Target Name="CopyDragonbornNaturallySpeakingOriginal" AfterTargets="Build">
   <ItemGroup>
-    <DragonBornOutputs Include="$(ProjectDir)\$(OutputPath)\**\*.*" Visible="false" />
+    <IniFile Include="DragonbornSpeaksNaturally.SAMPLE.ini" />
   </ItemGroup>
-  <PropertyGroup>
-    <DragonBornShimGen><![CDATA[
+  <Target Name="ConcatIniFile">
+    <!-- List all the files you want to concatenate. -->
+    <ItemGroup>
+      <ConcatFiles Include="&#xD;&#xA;        $(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini;&#xD;&#xA;        $(ProjectDir)\DragonbornSpeaksNaturally.SAMPLE.ini" />
+    </ItemGroup>
+    <!-- Read the contents of the files (preserving tabs/spaces). -->
+    <ItemGroup>
+      <FileContents Include="$([System.IO.File]::ReadAllText(%(ConcatFiles.Identity)))" />
+    </ItemGroup>
+    <!-- Write the result to a single file. -->
+    <WriteLinesToFile File="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini" Lines="@(FileContents)" Overwrite="true" />
+  </Target>
+  <Target Name="CopyDragonbornNaturallySpeakingOriginal" AfterTargets="Build">
+    <ItemGroup>
+      <DragonBornOutputs Include="$(ProjectDir)\$(OutputPath)\**\*.*" Visible="false" />
+    </ItemGroup>
+    <PropertyGroup>
+      <DragonBornShimGen><![CDATA[
 "$(SolutionDir)\packages\chocolatey.0.10.14\tools\chocolateyInstall\tools\shimgen.exe" --output="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.exe" -p="$(AssemblyName)\$(AssemblyName).exe"
 ]]></DragonBornShimGen>
-    <DragonBornPluginRoot>$(ProjectDir)\$(OutputPath)\..\..\..\..\..</DragonBornPluginRoot>
-    <DragonBornSEOutputPath>$(DragonBornPluginRoot)\SkyrimSE\Data\Plugins\Sumwunn\$(AssemblyName)</DragonBornSEOutputPath>
-  </PropertyGroup>
-	  <DownloadFile SourceUrl="$(DragonBornUrl)" DestinationFolder="$(IntermediateOutputPath)" DestinationFileName="dsn.zip" />
+      <DragonBornPluginRoot>$(ProjectDir)\$(OutputPath)\..\..\..\..\..</DragonBornPluginRoot>
+      <DragonBornSEOutputPath>$(DragonBornPluginRoot)\SkyrimSE\Data\Plugins\Sumwunn\$(AssemblyName)</DragonBornSEOutputPath>
+    </PropertyGroup>
+    <DownloadFile SourceUrl="$(DragonBornUrl)" DestinationFolder="$(IntermediateOutputPath)" DestinationFileName="dsn.zip" />
     <Unzip SourceFiles="$(IntermediateOutputPath)\dsn.zip" DestinationFolder="$(ProjectDir)\$(OutputPath)\..\..\..\..\.." />
     <Move SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.exe" DestinationFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.Original.exe" />
     <Exec Command="$(DragonBornShimGen)" />
-	<CallTarget Targets="ConcatIniFile" />
-    <Copy SkipUnchangedFiles="true" SourceFiles="@(DragonBornOutputs)" DestinationFolder="$(DragonBornSEOutputPath)" />
+    <CallTarget Targets="ConcatIniFile" />
     <Copy SkipUnchangedFiles="true" SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.exe" DestinationFolder="$(DragonBornSEOutputPath)\.." />
     <Copy SkipUnchangedFiles="true" SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.Original.exe" DestinationFolder="$(DragonBornSEOutputPath)\.." />
     <Copy SkipUnchangedFiles="true" SourceFiles="$(ProjectDir)\$(OutputPath)\..\DragonbornSpeaksNaturally.SAMPLE.ini" DestinationFolder="$(DragonBornSEOutputPath)\.." />
     <Copy SkipUnchangedFiles="true" SourceFiles="@(FoMod)" DestinationFolder="$(DragonBornPluginRoot)\fomod" />
-	  <ZipDirectory SourceDirectory="$(DragonBornPluginRoot)" DestinationFile="$(DragonBornPluginRoot)\..\DragonbornSpeaksNaturallyApi.$(Configuration).zip" />
+    <Delete ContinueOnError="true" Files="$(DragonBornPluginRoot)\..\DragonbornSpeaksNaturallyApi.$(Configuration).zip" />
+    <ZipDirectory SourceDirectory="$(DragonBornPluginRoot)" DestinationFile="$(DragonBornPluginRoot)\..\DragonbornSpeaksNaturallyApi.$(Configuration).zip" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

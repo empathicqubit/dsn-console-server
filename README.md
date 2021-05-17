@@ -10,11 +10,14 @@ API methods.
 ## Usage
 
 1. Install the ZIP using Vortex or NMM. Make sure you remove DSN if you have it
-as this plugin contains it already.
+as this plugin contains it already. I do not advise installing manually, at
+least for Skyrim SE, because some of the folders are copied from the VR version
+to reduce the size of the download.
 2. Start Skyrim and open the webpage in your browser. The default URL is
 [http://localhost:12160/](http://localhost:12160/) but you can change it in
 the INI.
-3. Display the page in a window near your hand or other using either SteamVR beta or OpenVR Toolkit.
+3. Display the page in a window near your hand or other using either SteamVR beta
+or OpenVR Toolkit.
 4. Use OpenVR Toolkit chroma key to make the green background transparent, and
 turn on angle and window hiding so the window disappears when not lifted close
 to your face. Alternatively display it permanently at your waist.

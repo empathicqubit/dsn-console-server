@@ -89,7 +89,10 @@ const render = async () => {
                 e('h1', null, 'Left Hand'),
                 e('ul', null, state.favorites.map(item =>
                     e('li', null,
-                        e('button', { onclick: () => equip(item, 'left') }, item.itemName),
+                        e('button', { onclick: () => equip(item, 'left') }, [
+                            e('img', { src: `/weapons/${item.formId.toString(16).padStart(8, '0')}.png` }),
+                            item.itemName,
+                        ]),
                     ),
                 )),
             ]),
@@ -97,7 +100,10 @@ const render = async () => {
                 e('h1', null, 'Right Hand'),
                 e('ul', null, state.favorites.map(item =>
                     e('li', null,
-                        e('button', { onclick: () => equip(item, 'right') }, item.itemName),
+                        e('button', { onclick: () => equip(item, 'right') }, [
+                            e('img', { src: `/weapons/${item.formId.toString(16).padStart(8, '0')}.png` }),
+                            item.itemName,
+                        ]),
                     ),
                 )),
             ]),
