@@ -69,6 +69,7 @@ const reloadFavorites = async () => {
         }
 
         if (!different) {
+            setTimeout(reloadFavorites, UPDATE_INTERVAL)
             return;
         }
 
