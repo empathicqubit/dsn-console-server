@@ -40,5 +40,5 @@ jobs:
       with:
         upload_url: ${{ steps.get_release.outputs.upload_url }}
         asset_path: EmpathicQubit.ConsoleServer/bin/DragonbornSpeaksNaturallyApi.Release.zip
-        asset_name: DragonbornSpeaksNaturallyApi.zip
+        asset_name: DragonbornSpeaksNaturallyApi.${{ steps.get_release.outputs.tag_name }}.zip
         asset_content_type: application/zip
